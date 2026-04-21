@@ -1,21 +1,21 @@
-# NoteVault - PWA Notes & Journaling App
+# PWA Notes and Journaling App
 
-A Progressive Web App for capturing and managing personal notes and journal entries — fully offline-capable and installable on any device.
+A Progressive Web App for capturing and managing personal notes and journal entries, fully offline and installable on any device.
 
 ## Features
 
-- Create notes with auto-captured date & time
+- Create notes with auto date and time
 - Optional note title
-- Rich content support — text, images, files, voice recordings, camera capture
+- Add text, images, files, voice recordings and capture from camera
 - Edit and delete notes
-- Backup notes to file
-- Import notes from file
+- Backup notes to a file
+- Import notes from a file
 
 ## Tech Stack
 
 - React + Vite
 - PWA (Service Worker + Web App Manifest)
-- Local Storage / IndexedDB (offline-first)
+- IndexedDB for offline storage
 
 ## Getting Started
 
@@ -24,6 +24,6 @@ npm install
 npm run dev
 ```
 
-## Project Status
+## Status
 
 Under active development.
