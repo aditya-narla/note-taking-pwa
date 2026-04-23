@@ -75,3 +75,18 @@ export async function updateNote(note) {
         request.onerror = () => reject(request.error)
     })
 }
+
+export async function deleteNote(id) {
+    
+    const db = await openDB()
+
+    return new Promise((resolve, reject) => {
+
+        const tx = db.transaction('notes', 'readwrite')
+        const store = tx.objectStore('notes')
+        const request = store.delete(id)
+
+        request.onsuccess = () => resolve(request.result)
+        request.onerror = () => reject(request.error)
+    })
+}
