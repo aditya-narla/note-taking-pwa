@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllNotes } from '../db/db';
+import { getAllNotes, addNote, deleteNote, updateNote } from '../db/db';
 
 export function useNotes() {
 
@@ -17,6 +17,21 @@ export function useNotes() {
         setLoading(false);
     }
 
-    return { notes, loading };
+    async function add(note) {
+        await addNote(note);
+        await loadNotes();
+    }
+
+    async function remove(id) {
+        await deleteNote(id);
+        await loadNotes();
+    }
+
+    async function update(note) {
+        await updateNote(note);
+        await loadNotes();
+    }
+
+    return { notes, loading, add, remove, update };
 
 }
