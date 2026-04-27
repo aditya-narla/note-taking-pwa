@@ -15,8 +15,6 @@ function Home() {
 
     return (
         <main>
-            <h1>Home</h1>           
-
             {notes.map(note => (
                 <NoteCard key={note.id} note={note} />
             ))} 
