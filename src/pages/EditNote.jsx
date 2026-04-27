@@ -30,14 +30,14 @@ function EditNote() {
 
     return (
         <main>
-            <h1>Edit Note</h1>
+            <h2>Edit Note</h2>
 
             <form onSubmit={handleSubmit}>
-                <label>Title</label>
+                <label>Title *</label>
                 <input type="text" placeholder="Title"
                 value={title} onChange={e => setTitle(e.target.value)} />
 
-                <label>Content</label>
+                <label>Content *</label>
                 <textarea value={content}
                 onChange={e => setContent(e.target.value)}></textarea>
 

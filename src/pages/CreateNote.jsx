@@ -28,15 +28,15 @@ function CreateNote() {
 
     return (
         <main>
-            <h1>Create Note</h1>
+            <h2>Create Note</h2>
 
             <form onSubmit={handleSubmit}>
 
-                <label>Title</label>
-                <input type="text" placeholder="Title"
+                <label>Title *</label>
+                <input type="text" placeholder="Pet Day 4/21"
                 value={title} onChange={e => setTitle(e.target.value)} />
 
-                <label>Content</label>
+                <label>Content *</label>
                 <textarea value={content} 
                 onChange={e => setContent(e.target.value)}></textarea>
 
