@@ -10,7 +10,7 @@ function EditNote() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
-    const { update } = useNotes();
+    const { update, remove } = useNotes();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,22 +24,33 @@ function EditNote() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        update({ id: Number(id), title, content});
+        update({ id: Number(id), title, content });
+        navigate('/');
+    }
+
+    function handleDelete() {
+        if (!window.confirm('Delete this note?'))
+            return;
+        remove(Number(id));
         navigate('/');
     }
 
     return (
         <main>
-            <h2>Edit Note</h2>
+            <div className="edit-header">
+                <h2>Edit Note</h2>
+                <button type="button" className="delete-btn"
+                onClick={handleDelete}>Delete</button>
+            </div>
 
             <form onSubmit={handleSubmit}>
                 <label>Title *</label>
                 <input type="text" placeholder="Title"
-                value={title} onChange={e => setTitle(e.target.value)} />
+                    value={title} onChange={e => setTitle(e.target.value)} />
 
                 <label>Content *</label>
                 <textarea value={content}
-                onChange={e => setContent(e.target.value)}></textarea>
+                    onChange={e => setContent(e.target.value)}></textarea>
 
                 <button type="submit">Save</button>
             </form>
