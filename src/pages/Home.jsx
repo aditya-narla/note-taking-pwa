@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import NoteCard from "../components/NoteCard";
 import { useNotes } from "../hooks/useNotes";
 
@@ -15,6 +16,7 @@ function Home() {
 
     return (
         <main>
+            <Link to="/create" className="create-btn">+ Create Note</Link>
             {notes.map(note => (
                 <NoteCard key={note.id} note={note} />
             ))} 

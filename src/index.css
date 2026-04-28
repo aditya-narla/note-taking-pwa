@@ -136,6 +136,18 @@ button {
   cursor: pointer;
 }
 
+.create-btn {
+  background-color: #68d391;
+  display: block;
+  margin-left: auto;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #000 !important;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
 input[type="text"] {
   width: 100%;
   padding: 0.5rem 0.75rem;
@@ -246,6 +258,9 @@ code {
 .note-card h3 {
   flex: 1;
   margin: 0;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 0.7rem;
 }
 
 .note-card img {

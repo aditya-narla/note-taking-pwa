@@ -4,7 +4,6 @@ function Header() {
     return (
         <header className="header">
             <Link to="/">Pet Pals Pack</Link>
-            <Link to="/create">+</Link>
         </header>
     );
 }
