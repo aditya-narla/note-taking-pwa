@@ -289,3 +289,8 @@ a.note-card {
   flex: 1;
   min-width: 0;
 }
+
+.empty-state {
+  margin-top: 2rem;
+  text-align: center;
+}

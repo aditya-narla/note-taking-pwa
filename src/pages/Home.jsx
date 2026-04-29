@@ -9,9 +9,14 @@ function Home() {
     if (loading) {
         return <p>Loading...</p>
     }
-    
+
     else if (notes.length === 0) {
-        return <p>No notes yet.</p>
+        return (
+            <main>
+                <Link to="/create" className="create-btn">+ Create Note</Link>
+                <p>No notes yet.</p>
+            </main>
+        )
     }
 
     return (
@@ -19,7 +24,7 @@ function Home() {
             <Link to="/create" className="create-btn">+ Create Note</Link>
             {notes.map(note => (
                 <NoteCard key={note.id} note={note} />
-            ))} 
+            ))}
         </main>
     )
 }
