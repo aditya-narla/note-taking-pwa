@@ -9,6 +9,7 @@ function EditNote() {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [photo, setPhoto] = useState(null);
 
     const { update, remove } = useNotes();
     const navigate = useNavigate();
@@ -18,13 +19,14 @@ function EditNote() {
             const note = await getNoteById(Number(id));
             setTitle(note.title);
             setContent(note.content);
+            setPhoto(note.photo || null)
         }
         loadNote();
     }, [id]);
 
     function handleSubmit(e) {
         e.preventDefault();
-        update({ id: Number(id), title, content });
+        update({ id: Number(id), title, content, photo });
         navigate('/');
     }
 
@@ -35,12 +37,21 @@ function EditNote() {
         navigate('/');
     }
 
+    function handlePhoto(e) {
+        const file = e.target.files[0];
+        if (!file)
+            return;
+        const reader = new FileReader();
+        reader.onload = () => setPhoto(reader.result);
+        reader.readAsDataURL(file);
+    }
+
     return (
         <main>
             <div className="edit-header">
                 <h2>Edit Note</h2>
                 <button type="button" className="delete-btn"
-                onClick={handleDelete}>Delete</button>
+                    onClick={handleDelete}>Delete</button>
             </div>
 
             <form onSubmit={handleSubmit}>
@@ -50,7 +61,15 @@ function EditNote() {
 
                 <label>Content *</label>
                 <textarea value={content}
-                    onChange={e => setContent(e.target.value)}></textarea>
+                    onChange={e => setContent(e.target.value)}>
+                </textarea>
+
+                {photo && <img src={photo} alt="note photo"
+                style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px', marginBottom: '0.5rem'}} />}
+
+                <label>Change image</label>
+                <input type="file" accept="image/*"
+                capture="environment" onChange={handlePhoto} />
 
                 <button type="submit">Save</button>
             </form>
