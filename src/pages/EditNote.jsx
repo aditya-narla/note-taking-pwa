@@ -48,6 +48,12 @@ function EditNote() {
         reader.readAsDataURL(file);
     }
 
+    function handleRemovePhoto() {
+        if (!window.confirm('Remove this photo?'))
+            return;
+        setPhoto(null);
+    }
+
     return (
         <main>
             <div className="edit-header">
@@ -66,12 +72,21 @@ function EditNote() {
                     onChange={e => setContent(e.target.value)}>
                 </textarea>
 
-                {photo && <img src={photo} alt="note photo"
-                style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px', marginBottom: '0.5rem'}} />}
+                {photo && (
+                    <div style={{ position: 'relative', display: 'inline-block', width: 'fit-content'}}>
+                        <img src={photo} alt="note photo"
+                            style={{
+                                width: '80px', height: '80px', objectFit: 'cover',
+                                borderRadius: '8px', marginBottom: '0.5rem'
+                            }} />
+                            <button type="button" className="remove-photo-btn"
+                            onClick={handleRemovePhoto} >x</button>
+                    </div>
+                )}
 
                 <label>Change image</label>
                 <input type="file" accept="image/*"
-                capture="environment" onChange={handlePhoto} />
+                    capture="environment" onChange={handlePhoto} />
 
                 <button type="submit">Save</button>
             </form>
