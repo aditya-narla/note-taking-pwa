@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNotes } from "../hooks/useNotes";
 import { useNavigate } from "react-router-dom";
+import { isAllowedFile } from "../utils/fileUtils";
 
 function CreateNote() {
 
@@ -29,19 +30,6 @@ function CreateNote() {
         const reader = new FileReader();
         reader.onload = () => setPhoto(reader.result);
         reader.readAsDataURL(file);
-    }
-
-    function isAllowedFile(file) {
-        const allowed = [
-            'image/jpeg', 'image/png', 'image/gif', 'image/webp',
-            'application/pdf',
-            'application/msword',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'text/plain',
-            'audio/mpeg', 'audio/wav',
-            'video/mp4', 'video/quicktime'
-        ];
-        return allowed.includes(file.type);
     }
 
     function handleAttachment(e) {

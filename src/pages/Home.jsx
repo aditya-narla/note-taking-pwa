@@ -14,7 +14,16 @@ function Home() {
     else if (notes.length === 0) {
         return (
             <main>
-                <Link to="/create" className="create-btn">+ Create Note</Link>
+                <div className="home-actions">
+                    <button onClick={handleExport} className="export-btn">Export all</button>
+                    <label className="import-btn">
+                        Import (.json)
+                        <input type="file" accept=".json"
+                            onChange={handleImport} style={{ display: 'none' }} />
+                    </label>
+                    <Link to="/create" className="create-btn">+ Create Note</Link>
+                </div>
+                <br />
                 <p>No notes yet.</p>
             </main>
         )
@@ -51,7 +60,7 @@ function Home() {
                 <label className="import-btn">
                     Import (.json)
                     <input type="file" accept=".json"
-                    onChange={handleImport} style={{ display: 'none'}} />
+                        onChange={handleImport} style={{ display: 'none' }} />
                 </label>
                 <Link to="/create" className="create-btn">+ Create Note</Link>
             </div>
