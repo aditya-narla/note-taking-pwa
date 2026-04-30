@@ -13,8 +13,8 @@ function CreateNote() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        if (!title.trim() || !content.trim()) {
-            alert('Title and content are required.');
+        if (!content.trim()) {
+            alert('Content is required.');
             return;
         }
         add({ title, content, photo });
@@ -36,7 +36,7 @@ function CreateNote() {
 
             <form onSubmit={handleSubmit}>
 
-                <label>Title *</label>
+                <label>Title</label>
                 <input type="text" placeholder="Pet Day 4/21"
                     value={title} onChange={e => setTitle(e.target.value)} />
 

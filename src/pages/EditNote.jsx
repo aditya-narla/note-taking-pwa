@@ -28,8 +28,8 @@ function EditNote() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        if (!title.trim() || !content.trim()) {
-            alert('Title and content are required.');
+        if (!content.trim()) {
+            alert('Content is required.');
             return;
         }
         update({ id: Number(id), title, content, photo, createdAt });
@@ -67,7 +67,7 @@ function EditNote() {
             </div>
 
             <form onSubmit={handleSubmit}>
-                <label>Title *</label>
+                <label>Title</label>
                 <input type="text" placeholder="Title"
                     value={title} onChange={e => setTitle(e.target.value)} />
 
