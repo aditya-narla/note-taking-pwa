@@ -4,8 +4,10 @@ import { formatDate } from "../utils/formatDate"
 function NoteCard({ note }) {
     return (
         <Link to={`/edit/${note.id}`} className="note-card">
-            {note.photo && <img src={note.photo} alt="note photo" />}
-            <div>
+            <div className="note-thumbnail">
+                {note.photo && <img src={note.photo} alt="note photo" />}
+            </div>
+            <div className="note-body">
                 <div className="note-card-header">
                     <h3> {note.title} </h3>
                     <div className="note-dates">

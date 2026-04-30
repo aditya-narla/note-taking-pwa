@@ -28,6 +28,10 @@ function EditNote() {
 
     function handleSubmit(e) {
         e.preventDefault();
+        if (!title.trim() || !content.trim()) {
+            alert('Title and content are required.');
+            return;
+        }
         update({ id: Number(id), title, content, photo, createdAt });
         navigate('/');
     }

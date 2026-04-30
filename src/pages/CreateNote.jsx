@@ -13,6 +13,10 @@ function CreateNote() {
 
     function handleSubmit(e) {
         e.preventDefault();
+        if (!title.trim() || !content.trim()) {
+            alert('Title and content are required.');
+            return;
+        }
         add({ title, content, photo });
         navigate('/');
     }
