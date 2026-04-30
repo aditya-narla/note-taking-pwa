@@ -10,6 +10,7 @@ function EditNote() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [photo, setPhoto] = useState(null);
+    const [createdAt, setCreatedAt] = useState(null);
 
     const { update, remove } = useNotes();
     const navigate = useNavigate();
@@ -19,14 +20,15 @@ function EditNote() {
             const note = await getNoteById(Number(id));
             setTitle(note.title);
             setContent(note.content);
-            setPhoto(note.photo || null)
+            setPhoto(note.photo || null);
+            setCreatedAt(note.createdAt);
         }
         loadNote();
     }, [id]);
 
     function handleSubmit(e) {
         e.preventDefault();
-        update({ id: Number(id), title, content, photo });
+        update({ id: Number(id), title, content, photo, createdAt });
         navigate('/');
     }
 

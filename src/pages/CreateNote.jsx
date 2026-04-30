@@ -34,15 +34,20 @@ function CreateNote() {
 
                 <label>Title *</label>
                 <input type="text" placeholder="Pet Day 4/21"
-                value={title} onChange={e => setTitle(e.target.value)} />
+                    value={title} onChange={e => setTitle(e.target.value)} />
 
                 <label>Content *</label>
-                <textarea value={content} 
-                onChange={e => setContent(e.target.value)}></textarea>
+                <textarea value={content}
+                    onChange={e => setContent(e.target.value)}></textarea>
+
+                {photo && <img src={photo} alt="note photo" style={{
+                    width: '80px', height: '80px', objectFit: 'cover',
+                    borderRadius: '8px'
+                }} />}
 
                 <label>Add image</label>
                 <input type="file" accept="image/*" capture="environment"
-                onChange={handlePhoto} />
+                    onChange={handlePhoto} />
 
                 <button type="submit">Save</button>
 

@@ -294,3 +294,12 @@ a.note-card {
   margin-top: 2rem;
   text-align: center;
 }
+
+.note-dates {
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+.note-dates p {
+  margin: 0;
+}

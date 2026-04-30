@@ -24,6 +24,7 @@ export async function addNote(note) {
 
         const tx = db.transaction('notes', 'readwrite')
         const store = tx.objectStore('notes')
+        note.lastEdited = Date.now()
         note.createdAt = Date.now()
         const request = store.add(note)
 
@@ -70,6 +71,7 @@ export async function updateNote(note) {
 
         const tx = db.transaction('notes', 'readwrite')
         const store = tx.objectStore('notes')
+        note.lastEdited = Date.now()
         const request = store.put(note)
 
         request.onsuccess = () => resolve(request.result)
