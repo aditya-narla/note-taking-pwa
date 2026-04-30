@@ -146,6 +146,7 @@ button {
   padding: 0.25rem 0.5rem;
   border-radius: 8px;
   text-decoration: none;
+  line-height: 1.8;
 }
 
 input[type="text"] {
@@ -338,10 +339,29 @@ a.note-card {
   font-size: 0.9rem;
   cursor: pointer;
   display: inline-block;
+  vertical-align: middle;
 }
 
 .home-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
+}
+
+.import-btn {
+  background-color: #f6ad55;
+  color: #000;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1.8;
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  margin: 0;
 }

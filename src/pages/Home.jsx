@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import NoteCard from "../components/NoteCard";
 import { useNotes } from "../hooks/useNotes";
-import { getAllNotes } from "../db/db";
+import { getAllNotes, addNote } from "../db/db";
 
 function Home() {
 
@@ -32,10 +32,27 @@ function Home() {
         URL.revokeObjectURL(url);
     }
 
+    async function handleImport(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const text = await file.text();
+        const notes = JSON.parse(text);
+        for (const note of notes) {
+            const { id, ...noteWithoutId } = note;
+            await addNote(noteWithoutId);
+        }
+        window.location.reload();
+    }
+
     return (
         <main>
             <div className="home-actions">
-                <button onClick={handleExport} className="export-btn">Export</button>
+                <button onClick={handleExport} className="export-btn">Export all</button>
+                <label className="import-btn">
+                    Import (.json)
+                    <input type="file" accept=".json"
+                    onChange={handleImport} style={{ display: 'none'}} />
+                </label>
                 <Link to="/create" className="create-btn">+ Create Note</Link>
             </div>
             {notes.map(note => (
