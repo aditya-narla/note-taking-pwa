@@ -114,7 +114,10 @@ function EditNote() {
                 </textarea>
 
                 {photo && (
-                    <div style={{ position: 'relative', display: 'inline-block', width: 'fit-content' }}>
+                    <div style={{
+                        position: 'relative', display: 'inline-block',
+                        width: 'fit-content'
+                    }}>
                         <img src={photo} alt="note photo"
                             style={{
                                 width: '80px', height: '80px', objectFit: 'cover',
@@ -156,7 +159,9 @@ function EditNote() {
                         <ul className="attachment-list">
                             {recordings.map((r, i) => (
                                 <li key={i}>
-                                    🎵 {r.name}
+                                    {i + 1}. {r.name}
+                                    <audio controls src={r.data} style={{ height: '30px' }} />
+                                    <a href={r.data} download={r.name}>↓</a>
                                     <button type="button" className="remove-attachment-btn"
                                         onClick={() => handleRemoveRecording(i)}>x</button>
                                 </li>

@@ -386,7 +386,7 @@ a.note-card {
   font-size: 0.85rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1.25rem;
   padding: 0.2rem 0;
 }
 

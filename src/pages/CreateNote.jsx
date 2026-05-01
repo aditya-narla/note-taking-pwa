@@ -124,6 +124,8 @@ function CreateNote() {
                             {recordings.map((r, i) => (
                                 <li key={i}>
                                     {i + 1}. {r.name}
+                                    <audio controls src={r.data} style={{ height: '30px'}} />
+                                    <a href={r.data} download={r.name}>↓</a>
                                     <button type="button" className="remove-attachment-btn"
                                         onClick={() => handleRemoveRecording(i)}>x</button>
                                 </li>
