@@ -8,12 +8,10 @@ function NoteCard({ note }) {
                 {note.photo && <img src={note.photo} alt="note photo" />}
             </div>
             <div className="note-body">
-                <div className="note-card-header">
-                    <h3> {note.title} </h3>
-                    <div className="note-dates">
-                        <p>Created: {note.createdAt && formatDate(note.createdAt)}</p>
-                        <p>Last edited: {note.lastEdited && formatDate(note.lastEdited)}</p>
-                    </div>
+                <h3> {note.title} </h3>
+                <div className="note-dates">
+                    <p>Created: {note.createdAt && formatDate(note.createdAt)}</p>
+                    <p>Last edited: {note.lastEdited && formatDate(note.lastEdited)}</p>
                 </div>
                 <p className="note-content"> {note.content} </p>
             </div>

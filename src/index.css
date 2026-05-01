@@ -262,6 +262,9 @@ code {
   font-weight: 600;
   color: #000;
   margin-bottom: 0.7rem;
+  white-space: nowrap;                                                                                    
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 a.note-card {
@@ -289,6 +292,7 @@ a.note-card {
 .note-dates {
   text-align: right;
   font-size: 0.75rem;
+  margin-bottom: 0.4rem;
 }
 
 .note-dates p {
