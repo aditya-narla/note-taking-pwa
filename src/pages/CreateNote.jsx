@@ -9,6 +9,9 @@ function CreateNote() {
     const [content, setContent] = useState('');
     const [photo, setPhoto] = useState(null);
     const [attachments, setAttachments] = useState([]);
+    const [recording, setRecording] = useState(false);
+    const [mediaRecorder, setMediaRecorder] = useState(null);
+    const [recordings, setRecordings] = useState([]);
 
     const { add } = useNotes();
     const navigate = useNavigate();
@@ -19,7 +22,7 @@ function CreateNote() {
             alert('Content is required.');
             return;
         }
-        add({ title, content, photo, attachments });
+        add({ title, content, photo, attachments, recordings });
         navigate('/');
     }
 
@@ -68,6 +71,37 @@ function CreateNote() {
         setAttachments(prev => prev.filter((_, i) => i !== index));
     }
 
+    async function handleRecord() {
+        if (recording) {
+            mediaRecorder.stop();
+            setRecording(false);
+            return;
+        }
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const recorder = new MediaRecorder(stream);
+        const chunks = [];
+
+        recorder.ondataavailable = e => chunks.push(e.data);
+        recorder.onstop = () => {
+            const blob = new Blob(chunks, { type: 'audio/webm' });
+            const reader = new FileReader();
+            reader.onload = () => {
+                const name = `recording-${Date.now()}.webm`;
+                setRecordings(prev => [...prev, { name, type: 'audio/webm', data: reader.result }]);
+            };
+            reader.readAsDataURL(blob);
+            stream.getTracks().forEach(t => t.stop());
+        };
+
+        recorder.start();
+        setMediaRecorder(recorder);
+        setRecording(true);
+    }
+
+    function handleRemoveRecording(index) {
+        setRecordings(prev => prev.filter((_, i) => i !== index));
+    }
+
     return (
         <main>
             <h2>Create Note</h2>
@@ -99,7 +133,8 @@ function CreateNote() {
                 <ul className="attachment-list">
                     {attachments.map((a, i) => (
                         <li key={i}>
-                            <span title={a.name} style={{ flex: 1, maxWidth: '200px', 
+                            <span title={a.name} style={{
+                                flex: 1, maxWidth: '200px',
                                 overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                                 cursor: 'default'
                             }}>
@@ -110,6 +145,24 @@ function CreateNote() {
                         </li>
                     ))}
                 </ul>
+
+                <div className="voice-section">
+                    <button type="button" className="record-btn" onClick={handleRecord}>
+                        {recording ? 'Stop recording' : 'Record audio'}
+                    </button>
+
+                    {recordings.length > 0 && (
+                        <ul className="attachment-list">
+                            {recordings.map((r, i) => (
+                                <li key={i}>
+                                    {i + 1}. {r.name}
+                                    <button type="button" className="remove-attachment-btn"
+                                        onClick={() => handleRemoveRecording(i)}>x</button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
 
                 <button type="submit">Save</button>
 
