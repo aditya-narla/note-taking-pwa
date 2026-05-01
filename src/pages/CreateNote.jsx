@@ -90,8 +90,7 @@ function CreateNote() {
                 }} />}
 
                 <label>Add thumbnail</label>
-                <input type="file" accept="image/*" capture="environment"
-                    onChange={handlePhoto} />
+                <input type="file" accept="image/*" onChange={handlePhoto} />
 
                 <label>Attachments</label>
                 <input type="file"

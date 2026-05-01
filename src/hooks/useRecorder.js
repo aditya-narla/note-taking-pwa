@@ -11,17 +11,20 @@ export function useRecorder() {
             setRecording(false);
             return;
         }
+        
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const recorder = new MediaRecorder(stream);
+        const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 'audio/mp4';
+        const recorder = new MediaRecorder(stream, { mimeType });
         const chunks = [];
 
         recorder.ondataavailable = e => chunks.push(e.data);
         recorder.onstop = () => {
-            const blob = new Blob(chunks, { type: 'audio/webm' });
+            const blob = new Blob(chunks, { type: mimeType });
             const reader = new FileReader();
             reader.onload = () => {
-                const name = `recording-${Date.now()}.webm`;
-                setRecordings(prev => [...prev, { name, type: 'audio/webm', data: reader.result }]);
+                const ext = mimeType === 'audio/webm' ? 'webm' : 'mp4';
+                const name = `recording-${Date.now()}.${ext}`;
+                setRecordings(prev => [...prev, { name, type: mimeType, data: reader.result }]);
             };
             reader.readAsDataURL(blob);
             stream.getTracks().forEach(t => t.stop());
