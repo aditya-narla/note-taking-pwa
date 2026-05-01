@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNotes } from "../hooks/useNotes";
 import { useNavigate } from "react-router-dom";
 import { isAllowedFile } from "../utils/fileUtils";
+import { useRecorder } from "../hooks/useRecorder";
 
 function CreateNote() {
 
@@ -9,12 +10,10 @@ function CreateNote() {
     const [content, setContent] = useState('');
     const [photo, setPhoto] = useState(null);
     const [attachments, setAttachments] = useState([]);
-    const [recording, setRecording] = useState(false);
-    const [mediaRecorder, setMediaRecorder] = useState(null);
-    const [recordings, setRecordings] = useState([]);
 
     const { add } = useNotes();
     const navigate = useNavigate();
+    const { recording, recordings, setRecordings, handleRecord, handleRemoveRecording } = useRecorder();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -69,37 +68,6 @@ function CreateNote() {
 
     function handleRemoveAttachment(index) {
         setAttachments(prev => prev.filter((_, i) => i !== index));
-    }
-
-    async function handleRecord() {
-        if (recording) {
-            mediaRecorder.stop();
-            setRecording(false);
-            return;
-        }
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const recorder = new MediaRecorder(stream);
-        const chunks = [];
-
-        recorder.ondataavailable = e => chunks.push(e.data);
-        recorder.onstop = () => {
-            const blob = new Blob(chunks, { type: 'audio/webm' });
-            const reader = new FileReader();
-            reader.onload = () => {
-                const name = `recording-${Date.now()}.webm`;
-                setRecordings(prev => [...prev, { name, type: 'audio/webm', data: reader.result }]);
-            };
-            reader.readAsDataURL(blob);
-            stream.getTracks().forEach(t => t.stop());
-        };
-
-        recorder.start();
-        setMediaRecorder(recorder);
-        setRecording(true);
-    }
-
-    function handleRemoveRecording(index) {
-        setRecordings(prev => prev.filter((_, i) => i !== index));
     }
 
     return (

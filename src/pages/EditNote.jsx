@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getNoteById } from "../db/db";
 import { useNotes } from "../hooks/useNotes";
 import { isAllowedFile } from "../utils/fileUtils";
+import { useRecorder } from "../hooks/useRecorder";
 
 function EditNote() {
 
@@ -16,6 +17,7 @@ function EditNote() {
 
     const { update, remove } = useNotes();
     const navigate = useNavigate();
+    const { recording, recordings, setRecordings, handleRecord, handleRemoveRecording } = useRecorder();
 
     useEffect(() => {
         async function loadNote() {
@@ -25,6 +27,7 @@ function EditNote() {
             setPhoto(note.photo || null);
             setCreatedAt(note.createdAt);
             setAttachments(note.attachments || []);
+            setRecordings(note.recordings || []);
         }
         loadNote();
     }, [id]);
@@ -35,7 +38,7 @@ function EditNote() {
             alert('Content is required.');
             return;
         }
-        update({ id: Number(id), title, content, photo, createdAt, attachments });
+        update({ id: Number(id), title, content, photo, createdAt, attachments, recordings });
         navigate('/');
     }
 
@@ -144,6 +147,23 @@ function EditNote() {
                         </li>
                     ))}
                 </ul>
+
+                <div className="voice-section">
+                    <button type="button" className="record-btn" onClick={handleRecord}>
+                        {recording ? 'Stop recording' : 'Record audio'}
+                    </button>
+                    {recordings.length > 0 && (
+                        <ul className="attachment-list">
+                            {recordings.map((r, i) => (
+                                <li key={i}>
+                                    🎵 {r.name}
+                                    <button type="button" className="remove-attachment-btn"
+                                        onClick={() => handleRemoveRecording(i)}>x</button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
 
                 <button type="submit">Save</button>
             </form>
